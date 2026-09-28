@@ -27,7 +27,6 @@ id etCustomMinutes
 id presetRow
 id rootLayout
 id tvCountdown
-id tvTitle
 layout activity_main
 mipmap ic_launcher
 mipmap ic_launcher_foreground

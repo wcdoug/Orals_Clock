@@ -131,7 +131,7 @@ class MainActivity : AppCompatActivity() {
         updateDisplay(0L)
         setBackground(colorBackground, colorTimerTextDefault)
         btnPlayPause.text = getString(R.string.btn_play)
-        btnPlayPause.isEnabled = false
+        btnPlayPause.isEnabled = true
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
