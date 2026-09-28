@@ -1,0 +1,10 @@
+﻿# Build directories
+.gradle/
+build/
+app/build/
+local.properties
+.idea/
+.kotlin/
+*.apk
+*.aab
+*.ap_
