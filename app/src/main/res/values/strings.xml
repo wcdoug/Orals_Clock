@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Wenonah\'s Orals Timer</string>
+    <string name="btn_play">▶ START</string>
+    <string name="btn_pause">⏸ PAUSE</string>
+    <string name="btn_reset">RESET</string>
+    <string name="btn_set">SET</string>
+    <string name="hint_custom">min</string>
+    <string name="label_custom">Custom:</string>
+</resources>

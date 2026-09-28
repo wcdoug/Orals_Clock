@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.wenonah.oralstimer.app-mergeDebugResources-29:/values-h320dp-port-v13/values-h320dp-port-v13.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\melan\\.gradle\\caches\\9.3.0\\transforms\\4b850b3f32d0b82a3a1c2639aba243f3\\workspace\\transformed\\material-1.12.0\\res\\values-h320dp-port-v13\\values-h320dp-port-v13.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "63",
+                        "endOffsets": "114"
+                    }
+                }
+            ]
+        }
+    ]
+}

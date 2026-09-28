@@ -1,0 +1,14 @@
+<resources>
+    <color name="colorBackground">#1A1A2E</color>
+    <color name="colorWarningYellow">#FFC107</color>
+    <color name="colorCriticalRed">#F44336</color>
+    <color name="colorFlashWhite">#FFFFFF</color>
+    <color name="colorTimerTextDefault">#FFFFFF</color>
+    <color name="colorTimerTextDark">#1A1A2E</color>
+    <color name="colorPresetButton">#16213E</color>
+    <color name="colorPresetButtonText">#E0E0E0</color>
+    <color name="colorPlayButton">#0F3460</color>
+    <color name="colorPlayButtonText">#FFFFFF</color>
+    <color name="colorResetButton">#444466</color>
+    <color name="colorResetButtonText">#FFFFFF</color>
+</resources>
