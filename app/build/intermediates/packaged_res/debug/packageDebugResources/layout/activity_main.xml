@@ -19,17 +19,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Giant Play/Pause button -->
+        <!-- Play/Pause button -->
         <Button
             android:id="@+id/btnPlayPause"
             style="@style/Widget.MaterialComponents.Button"
             android:layout_width="0dp"
-            android:layout_height="52dp"
+            android:layout_height="64dp"
             android:layout_weight="3"
             android:layout_marginEnd="8dp"
             android:text="@string/btn_play"
             android:textColor="@color/colorPlayButtonText"
-            android:textSize="20sp"
+            android:textSize="24sp"
             android:textStyle="bold"
             android:backgroundTint="@color/colorPlayButton" />
 
@@ -38,11 +38,11 @@
             android:id="@+id/btnReset"
             style="@style/Widget.MaterialComponents.Button"
             android:layout_width="0dp"
-            android:layout_height="52dp"
+            android:layout_height="64dp"
             android:layout_weight="1"
             android:text="@string/btn_reset"
             android:textColor="@color/colorResetButtonText"
-            android:textSize="14sp"
+            android:textSize="18sp"
             android:backgroundTint="@color/colorResetButton" />
 
     </LinearLayout>
@@ -54,13 +54,12 @@
         android:layout_height="0dp"
         android:text="00:00"
         android:textColor="@color/colorTimerTextDefault"
-        android:textSize="240sp"
         android:fontFamily="monospace"
         android:gravity="center"
         android:includeFontPadding="false"
         android:autoSizeTextType="uniform"
-        android:autoSizeMinTextSize="80sp"
-        android:autoSizeMaxTextSize="240sp"
+        android:autoSizeMinTextSize="40sp"
+        android:autoSizeMaxTextSize="500sp"
         app:layout_constraintTop_toBottomOf="@id/actionRow"
         app:layout_constraintBottom_toTopOf="@id/presetRow"
         app:layout_constraintStart_toStartOf="parent"
@@ -82,60 +81,60 @@
             android:id="@+id/btn30"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="0dp"
-            android:layout_height="40dp"
+            android:layout_height="60dp"
             android:layout_weight="1"
             android:layout_marginHorizontal="4dp"
             android:text="30 min"
             android:textColor="@color/colorPresetButtonText"
-            android:textSize="12sp"
+            android:textSize="16sp"
             android:backgroundTint="@color/colorPresetButton" />
 
         <Button
             android:id="@+id/btn40"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="0dp"
-            android:layout_height="40dp"
+            android:layout_height="60dp"
             android:layout_weight="1"
             android:layout_marginHorizontal="4dp"
             android:text="40 min"
             android:textColor="@color/colorPresetButtonText"
-            android:textSize="12sp"
+            android:textSize="16sp"
             android:backgroundTint="@color/colorPresetButton" />
 
         <Button
             android:id="@+id/btn60"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="0dp"
-            android:layout_height="40dp"
+            android:layout_height="60dp"
             android:layout_weight="1"
             android:layout_marginHorizontal="4dp"
             android:text="60 min"
             android:textColor="@color/colorPresetButtonText"
-            android:textSize="12sp"
+            android:textSize="16sp"
             android:backgroundTint="@color/colorPresetButton" />
 
         <Button
             android:id="@+id/btn90"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="0dp"
-            android:layout_height="40dp"
+            android:layout_height="60dp"
             android:layout_weight="1"
             android:layout_marginHorizontal="4dp"
             android:text="90 min"
             android:textColor="@color/colorPresetButtonText"
-            android:textSize="12sp"
+            android:textSize="16sp"
             android:backgroundTint="@color/colorPresetButton" />
 
         <Button
             android:id="@+id/btn120"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="0dp"
-            android:layout_height="40dp"
+            android:layout_height="60dp"
             android:layout_weight="1"
             android:layout_marginHorizontal="4dp"
             android:text="120 min"
             android:textColor="@color/colorPresetButtonText"
-            android:textSize="12sp"
+            android:textSize="16sp"
             android:backgroundTint="@color/colorPresetButton" />
 
     </LinearLayout>
@@ -157,7 +156,7 @@
             android:layout_height="wrap_content"
             android:text="@string/label_custom"
             android:textColor="@color/colorPresetButtonText"
-            android:textSize="13sp"
+            android:textSize="14sp"
             android:layout_marginEnd="6dp" />
 
         <EditText
@@ -179,12 +178,12 @@
             android:id="@+id/btnSet"
             style="@style/Widget.MaterialComponents.Button"
             android:layout_width="wrap_content"
-            android:layout_height="36dp"
+            android:layout_height="48dp"
             android:layout_marginStart="6dp"
             android:text="@string/btn_set"
             android:textColor="@color/colorPlayButtonText"
             android:backgroundTint="@color/colorPlayButton"
-            android:textSize="13sp" />
+            android:textSize="14sp" />
 
     </LinearLayout>
 
