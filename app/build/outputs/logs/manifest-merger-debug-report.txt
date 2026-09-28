@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:2:1-54:12
-INJECTED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:2:1-54:12
-INJECTED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:2:1-54:12
-INJECTED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:2:1-54:12
+ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:2:1-59:12
+INJECTED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:2:1-59:12
+INJECTED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:2:1-59:12
+INJECTED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:2:1-59:12
 MERGED from [com.google.android.material:material:1.12.0] C:\Users\melan\.gradle\caches\9.3.0\transforms\4b850b3f32d0b82a3a1c2639aba243f3\workspace\transformed\material-1.12.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\melan\.gradle\caches\9.3.0\transforms\f8d39cd93045833f47f599a6911a6f08\workspace\transformed\constraintlayout-2.1.4\AndroidManifest.xml:2:1-11:12
 MERGED from [androidx.appcompat:appcompat-resources:1.7.0] C:\Users\melan\.gradle\caches\9.3.0\transforms\ca07fd17a5cb8604fb898c132846e613\workspace\transformed\appcompat-resources-1.7.0\AndroidManifest.xml:2:1-7:12
@@ -62,8 +62,8 @@ ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml
 	android:name
 		ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:5:22-78
 application
-ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:7:5-52:19
-INJECTED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:7:5-52:19
+ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:7:5-57:19
+INJECTED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:7:5-57:19
 MERGED from [com.google.android.material:material:1.12.0] C:\Users\melan\.gradle\caches\9.3.0\transforms\4b850b3f32d0b82a3a1c2639aba243f3\workspace\transformed\material-1.12.0\AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.12.0] C:\Users\melan\.gradle\caches\9.3.0\transforms\4b850b3f32d0b82a3a1c2639aba243f3\workspace\transformed\material-1.12.0\AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\melan\.gradle\caches\9.3.0\transforms\f8d39cd93045833f47f599a6911a6f08\workspace\transformed\constraintlayout-2.1.4\AndroidManifest.xml:9:5-20
@@ -97,7 +97,7 @@ MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\melan\.gradle\cach
 	android:theme
 		ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:13:9-48
 activity#com.wenonah.oralstimer.MainActivity
-ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:16:9-25:20
+ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:16:9-30:20
 	android:screenOrientation
 		ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:19:13-50
 	android:windowSoftInputMode
@@ -116,48 +116,58 @@ category#android.intent.category.LAUNCHER
 ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:23:17-77
 	android:name
 		ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:23:27-74
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.DEFAULT+category:name:android.intent.category.HOME
+ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:25:13-29:29
+category#android.intent.category.HOME
+ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:27:17-73
+	android:name
+		ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:27:27-70
+category#android.intent.category.DEFAULT
+ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:28:17-76
+	android:name
+		ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:28:27-73
 receiver#com.wenonah.oralstimer.AdminReceiver
-ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:28:9-39:20
+ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:33:9-44:20
 	android:label
-		ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:31:13-45
+		ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:36:13-45
 	android:exported
-		ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:30:13-36
+		ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:35:13-36
 	android:permission
-		ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:32:13-70
+		ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:37:13-70
 	android:name
-		ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:29:13-42
+		ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:34:13-42
 meta-data#android.app.device_admin
-ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:33:13-35:56
+ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:38:13-40:56
 	android:resource
-		ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:35:17-53
+		ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:40:17-53
 	android:name
-		ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:34:17-56
+		ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:39:17-56
 intent-filter#action:name:android.app.action.DEVICE_ADMIN_ENABLED
-ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:36:13-38:29
+ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:41:13-43:29
 action#android.app.action.DEVICE_ADMIN_ENABLED
-ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:37:17-82
+ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:42:17-82
 	android:name
-		ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:37:25-79
+		ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:42:25-79
 receiver#com.wenonah.oralstimer.BootReceiver
-ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:42:9-50:20
+ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:47:9-55:20
 	android:exported
-		ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:44:13-36
+		ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:49:13-36
 	android:name
-		ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:43:13-41
+		ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:48:13-41
 intent-filter#action:name:android.intent.action.BOOT_COMPLETED+action:name:android.intent.action.USER_PRESENT+action:name:android.intent.action.USER_UNLOCKED
-ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:45:13-49:29
+ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:50:13-54:29
 action#android.intent.action.BOOT_COMPLETED
-ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:46:17-79
+ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:51:17-79
 	android:name
-		ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:46:25-76
+		ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:51:25-76
 action#android.intent.action.USER_UNLOCKED
-ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:47:17-78
+ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:52:17-78
 	android:name
-		ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:47:25-75
+		ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:52:25-75
 action#android.intent.action.USER_PRESENT
-ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:48:17-77
+ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:53:17-77
 	android:name
-		ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:48:25-74
+		ADDED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml:53:25-74
 uses-sdk
 INJECTED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\melan\Downloads\Timer\Timer\app\src\main\AndroidManifest.xml
