@@ -2,6 +2,7 @@ package com.wenonah.oralstimer
 
 import android.app.admin.DevicePolicyManager
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
@@ -71,10 +72,22 @@ class MainActivity : AppCompatActivity() {
         // Keep screen on at the window level (belt-and-suspenders with wake lock)
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
-        // Lock Task Mode — pins the app as a kiosk when this app is the Device Owner.
-        // Set up once via ADB: adb shell dpm set-device-owner com.wenonah.oralstimer/.AdminReceiver
+        // Lock Task Mode + set as preferred home app when Device Owner
         val dpm = getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
-        if (dpm.isLockTaskPermitted(packageName)) {
+        val adminComponent = android.content.ComponentName(this, AdminReceiver::class.java)
+        if (dpm.isDeviceOwnerApp(packageName)) {
+            // Set this app as the preferred home app so it launches on boot instead of the launcher
+            val intentFilter = android.content.IntentFilter(Intent.ACTION_MAIN).apply {
+                addCategory(Intent.CATEGORY_HOME)
+                addCategory(Intent.CATEGORY_DEFAULT)
+            }
+            dpm.addPersistentPreferredActivity(
+                adminComponent,
+                intentFilter,
+                android.content.ComponentName(packageName, MainActivity::class.java.name)
+            )
+            // Lock into kiosk mode
+            dpm.setLockTaskPackages(adminComponent, arrayOf(packageName))
             startLockTask()
         }
 
