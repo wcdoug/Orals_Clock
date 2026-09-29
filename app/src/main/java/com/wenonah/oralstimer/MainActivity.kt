@@ -2,13 +2,11 @@ package com.wenonah.oralstimer
 
 import android.app.admin.DevicePolicyManager
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
 import android.os.PowerManager
-import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
@@ -16,6 +14,7 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.google.android.material.switchmaterial.SwitchMaterial
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,10 +22,18 @@ class MainActivity : AppCompatActivity() {
     private enum class State { IDLE, RUNNING, PAUSED, EXPIRED }
     private var state = State.IDLE
 
-    // ------- Timer -------
+    // ------- Mode -------
+    private var countUpMode = false   // false = count down, true = count up
+
+    // ------- Timer (count-down) -------
     private var countDownTimer: CountDownTimer? = null
     private var selectedDurationMs: Long = 0L   // duration currently loaded
     private var remainingMs: Long = 0L          // used when resuming from pause
+
+    // ------- Timer (count-up) -------
+    private val countUpHandler = Handler(Looper.getMainLooper())
+    private var elapsedMs: Long = 0L            // elapsed time in count-up mode
+    private var countUpRunnable: Runnable? = null
 
     // ------- Wake lock -------
     private var wakeLock: PowerManager.WakeLock? = null
@@ -43,6 +50,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var btn120: Button
     private lateinit var etCustomMinutes: EditText
     private lateinit var btnSet: Button
+    private lateinit var switchCountUp: SwitchMaterial
 
     // ------- Flash -------
     private val flashHandler = Handler(Looper.getMainLooper())
@@ -72,29 +80,14 @@ class MainActivity : AppCompatActivity() {
         // Keep screen on at the window level (belt-and-suspenders with wake lock)
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
-        // Lock Task Mode + set as preferred home app when Device Owner
+        // Lock Task Mode — pins the app as a kiosk when this app is the Device Owner.
+        // Set up once via ADB: adb shell dpm set-device-owner com.wenonah.oralstimer/.AdminReceiver
         val dpm = getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
-        val adminComponent = android.content.ComponentName(this, AdminReceiver::class.java)
-        if (dpm.isDeviceOwnerApp(packageName)) {
-            // Set this app as the preferred home app so it launches on boot instead of the launcher
-            val intentFilter = android.content.IntentFilter(Intent.ACTION_MAIN).apply {
-                addCategory(Intent.CATEGORY_HOME)
-                addCategory(Intent.CATEGORY_DEFAULT)
-            }
-            dpm.addPersistentPreferredActivity(
-                adminComponent,
-                intentFilter,
-                android.content.ComponentName(packageName, MainActivity::class.java.name)
-            )
-            // Lock into kiosk mode
-            dpm.setLockTaskPackages(adminComponent, arrayOf(packageName))
+        if (dpm.isLockTaskPermitted(packageName)) {
             startLockTask()
         }
 
         setContentView(R.layout.activity_main)
-
-        // Hide system navigation bar and status bar (immersive sticky)
-        hideSystemUI()
 
         // Resolve colors
         colorBackground     = getColor(R.color.colorBackground)
@@ -116,6 +109,15 @@ class MainActivity : AppCompatActivity() {
         btn120          = findViewById(R.id.btn120)
         etCustomMinutes = findViewById(R.id.etCustomMinutes)
         btnSet          = findViewById(R.id.btnSet)
+        switchCountUp   = findViewById(R.id.switchCountUp)
+
+        // Count Up/Down toggle
+        switchCountUp.setOnCheckedChangeListener { _, isChecked ->
+            countUpMode = isChecked
+            // Switching modes resets everything so there's no ambiguous state
+            resetTimer()
+            updatePresetVisibility()
+        }
 
         // Preset listeners
         btn30.setOnClickListener  { loadPreset(30) }
@@ -130,9 +132,17 @@ class MainActivity : AppCompatActivity() {
         // Play/Pause listener
         btnPlayPause.setOnClickListener {
             when (state) {
-                State.IDLE    -> if (selectedDurationMs > 0) startTimer(selectedDurationMs)
+                State.IDLE    -> {
+                    if (countUpMode) {
+                        startCountUp()
+                    } else if (selectedDurationMs > 0) {
+                        startTimer(selectedDurationMs)
+                    }
+                }
                 State.RUNNING -> pauseTimer()
-                State.PAUSED  -> startTimer(remainingMs)
+                State.PAUSED  -> {
+                    if (countUpMode) startCountUp() else startTimer(remainingMs)
+                }
                 State.EXPIRED -> { /* no-op, user must reset first */ }
             }
         }
@@ -144,29 +154,14 @@ class MainActivity : AppCompatActivity() {
         updateDisplay(0L)
         setBackground(colorBackground, colorTimerTextDefault)
         btnPlayPause.text = getString(R.string.btn_play)
-        btnPlayPause.isEnabled = true
-    }
-
-    override fun onWindowFocusChanged(hasFocus: Boolean) {
-        super.onWindowFocusChanged(hasFocus)
-        if (hasFocus) hideSystemUI()
-    }
-
-    @Suppress("DEPRECATION")
-    private fun hideSystemUI() {
-        window.decorView.systemUiVisibility = (
-            View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-            or View.SYSTEM_UI_FLAG_FULLSCREEN
-            or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-            or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-            or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-            or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-        )
+        btnPlayPause.isEnabled = countUpMode  // count-up can always start; count-down needs a duration
+        updatePresetVisibility()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         countDownTimer?.cancel()
+        stopCountUp()
         flashHandler.removeCallbacksAndMessages(null)
         releaseWakeLock()
     }
@@ -198,6 +193,11 @@ class MainActivity : AppCompatActivity() {
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(etCustomMinutes.windowToken, 0)
 
+        if (countUpMode) {
+            // In count-up mode the custom field is hidden; this shouldn't normally be called,
+            // but handle it defensively by switching to count-down behaviour.
+        }
+
         stopAndReset()
         selectedDurationMs = minutes * 60 * 1000L
         remainingMs = selectedDurationMs
@@ -209,7 +209,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     // =========================================================
-    // Timer control
+    // Timer control — count DOWN
     // =========================================================
 
     private fun startTimer(durationMs: Long) {
@@ -240,9 +240,47 @@ class MainActivity : AppCompatActivity() {
         btnPlayPause.isEnabled = true
     }
 
+    // =========================================================
+    // Timer control — count UP
+    // =========================================================
+
+    private fun startCountUp() {
+        stopCountUp()
+        acquireWakeLock()
+        setBackground(colorBackground, colorTimerTextDefault)
+
+        val startTime = System.currentTimeMillis() - elapsedMs
+        val r = object : Runnable {
+            override fun run() {
+                elapsedMs = System.currentTimeMillis() - startTime
+                updateDisplay(elapsedMs)
+                countUpHandler.postDelayed(this, 500L)
+            }
+        }
+        countUpRunnable = r
+        countUpHandler.post(r)
+
+        state = State.RUNNING
+        btnPlayPause.text = getString(R.string.btn_pause)
+        btnPlayPause.isEnabled = true
+    }
+
+    private fun stopCountUp() {
+        countUpRunnable?.let { countUpHandler.removeCallbacks(it) }
+        countUpRunnable = null
+    }
+
+    // =========================================================
+    // Shared pause / reset
+    // =========================================================
+
     private fun pauseTimer() {
-        countDownTimer?.cancel()
-        countDownTimer = null
+        if (countUpMode) {
+            stopCountUp()
+        } else {
+            countDownTimer?.cancel()
+            countDownTimer = null
+        }
         state = State.PAUSED
         btnPlayPause.text = getString(R.string.btn_play)
         releaseWakeLock()
@@ -250,15 +288,22 @@ class MainActivity : AppCompatActivity() {
 
     private fun resetTimer() {
         stopAndReset()
-        if (selectedDurationMs > 0) {
-            remainingMs = selectedDurationMs
-            updateDisplay(selectedDurationMs)
-            btnPlayPause.isEnabled = true
-        } else {
+        if (countUpMode) {
+            elapsedMs = 0L
             updateDisplay(0L)
-            btnPlayPause.isEnabled = false
+            setBackground(colorBackground, colorTimerTextDefault)
+            btnPlayPause.isEnabled = true      // count-up can always start fresh
+        } else {
+            if (selectedDurationMs > 0) {
+                remainingMs = selectedDurationMs
+                updateDisplay(selectedDurationMs)
+                btnPlayPause.isEnabled = true
+            } else {
+                updateDisplay(0L)
+                btnPlayPause.isEnabled = false
+            }
+            setBackground(colorBackground, colorTimerTextDefault)
         }
-        setBackground(colorBackground, colorTimerTextDefault)
         btnPlayPause.text = getString(R.string.btn_play)
         state = State.IDLE
     }
@@ -267,6 +312,7 @@ class MainActivity : AppCompatActivity() {
     private fun stopAndReset() {
         countDownTimer?.cancel()
         countDownTimer = null
+        stopCountUp()
         flashHandler.removeCallbacksAndMessages(null)
         releaseWakeLock()
     }
@@ -293,6 +339,23 @@ class MainActivity : AppCompatActivity() {
     private fun setBackground(bgColor: Int, textColor: Int) {
         rootLayout.setBackgroundColor(bgColor)
         tvCountdown.setTextColor(textColor)
+    }
+
+    /** Hide preset buttons and the custom row when in count-up mode (they're irrelevant). */
+    private fun updatePresetVisibility() {
+        val vis = if (countUpMode) android.view.View.GONE else android.view.View.VISIBLE
+        btn30.visibility  = vis
+        btn40.visibility  = vis
+        btn60.visibility  = vis
+        btn90.visibility  = vis
+        btn120.visibility = vis
+        // The whole presetRow and customRow LinearLayouts aren't directly referenced,
+        // so hiding individual buttons is enough — the rows collapse to zero height.
+        etCustomMinutes.visibility = vis
+        btnSet.visibility = vis
+        // Also hide the "Custom:" label — its parent row will collapse
+        (etCustomMinutes.parent as? android.view.ViewGroup)?.visibility = vis
+        (btn30.parent as? android.view.ViewGroup)?.visibility = vis
     }
 
     // =========================================================

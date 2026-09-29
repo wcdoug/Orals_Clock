@@ -6,4 +6,5 @@
     <string name="btn_set">SET</string>
     <string name="hint_custom">min</string>
     <string name="label_custom">Custom:</string>
+    <string name="toggle_count_up">Count Up</string>
 </resources>
